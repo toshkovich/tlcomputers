@@ -238,16 +238,34 @@ a.tel{color:var(--txt);text-decoration:none}
 /* Carousel Styles */
 .carousel-section{
   margin: 40px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 24px;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.carousel-section::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%);
+  background-size: 40px 40px;
+  pointer-events: none;
 }
 .carousel-container{
   position: relative;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  background: var(--card);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  border: 1px solid var(--border);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 1;
 }
 .carousel-track{
   display: flex;
@@ -587,7 +605,43 @@ a.tel{color:var(--txt);text-decoration:none}
   box-shadow: 0 8px 25px rgba(30, 144, 255, 0.2);
 }
 
-/* Responsive products grid */
+/* Cities Grid Styles */
+.cities-grid{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+.city-tag{
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.city-tag:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+/* Responsive cities grid */
+@media (max-width: 768px) {
+  .cities-grid{
+    gap: 8px;
+  }
+  .city-tag{
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+}
 @media (max-width: 768px) {
   .products-grid{
     grid-template-columns: 1fr;
