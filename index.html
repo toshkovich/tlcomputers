@@ -85,31 +85,65 @@
     </div>
   </section>
 
-  <!-- Product Banners Section -->
-  <section class="product-banners">
-    <div class="product-banner">
-      <div class="product-banner-image">
-        <img src="assets/img/products/IP/2 MP H.265+ Full Color IP водоустойчива булет камера или 1920x1080.jpg" alt="IP Камера Full Color">
+  <!-- Carousel Section -->
+  <section class="carousel-section">
+    <div class="carousel-container">
+      <div class="carousel-track">
+        <div class="carousel-slide active">
+          <div class="carousel-image">
+            <img src="assets/img/products/IP/2 MP H.265+ Full Color IP водоустойчива булет камера или 1920x1080.jpg" alt="2MP Full Color IP Камера">
+          </div>
+          <div class="carousel-content">
+            <h3 class="carousel-title">2MP Full Color IP Камера</h3>
+            <p class="carousel-description">Професионална IP камера с пълноцветно нощно виждане, H.265+ компресия и водоустойчивост IP67 за максимална сигурност денонощно.</p>
+            <a href="products.html" class="carousel-cta">Виж повече →</a>
+          </div>
+        </div>
+        
+        <div class="carousel-slide">
+          <div class="carousel-image">
+            <img src="assets/img/products/IP/6 MP H.265+ Full Color IP водоустойчива куполна камера или 3288x1850.png" alt="6MP Full Color IP Куполна Камера">
+          </div>
+          <div class="carousel-content">
+            <h3 class="carousel-title">6MP Full Color IP Куполна Камера</h3>
+            <p class="carousel-description">Висока резолюция 6MP с превъзходно цветно изображение дори нощем. Куполен дизайн за дискретен монтаж и защита от вандализъм.</p>
+            <a href="products.html" class="carousel-cta">Виж повече →</a>
+          </div>
+        </div>
+        
+        <div class="carousel-slide">
+          <div class="carousel-image">
+            <img src="assets/img/products/NVR/4-канален 4K мрежов рекордер NVR4104HS-4KS2L.png" alt="4K NVR Рекордер">
+          </div>
+          <div class="carousel-content">
+            <h3 class="carousel-title">4-канален 4K NVR Рекордер</h3>
+            <p class="carousel-description">Професионален мрежови рекордер с 4K резолюция, поддръжка за до 4 IP камери и интелигентен видео анализ за оптимална сигурност.</p>
+            <a href="products.html" class="carousel-cta">Виж повече →</a>
+          </div>
+        </div>
+        
+        <div class="carousel-slide">
+          <div class="carousel-image">
+            <img src="assets/img/products/HDCVI/2 Megapixel Full Color куполна камера, HAC-HDW1239T-IL-A-0280B-S2.jpg" alt="2MP HDCVI Full Color Куполна Камера">
+          </div>
+          <div class="carousel-content">
+            <h3 class="carousel-title">2MP HDCVI Full Color Куполна</h3>
+            <p class="carousel-description">Dahua HDCVI камера с пълноцветно нощно виждане, Smart LED осветление и висока устойчивост на атмосферни условия.</p>
+            <a href="products.html" class="carousel-cta">Виж повече →</a>
+          </div>
+        </div>
       </div>
-      <div class="product-banner-content">
-        <h3 class="product-banner-title">IP Камери Full Color</h3>
-        <p class="product-banner-description">Най-новото поколение IP камери с пълноцветно нощно виждане и висока резолюция за кристално ясни записи денонощно.</p>
-        <a href="products.html" class="product-banner-cta">
-          Виж камерите →
-        </a>
-      </div>
-    </div>
-    
-    <div class="product-banner">
-      <div class="product-banner-image">
-        <img src="assets/img/products/NVR/4-канален 4K мрежов рекордер NVR4104HS-4KS2L.png" alt="4K NVR Рекордер">
-      </div>
-      <div class="product-banner-content">
-        <h3 class="product-banner-title">4K NVR Рекордери</h3>
-        <p class="product-banner-description">Професионални мрежови рекордери с 4K резолюция, интелигентен анализ и дистанционен достъп за максимална сигурност.</p>
-        <a href="products.html" class="product-banner-cta">
-          Виж рекордерите →
-        </a>
+      
+      <!-- Navigation Arrows -->
+      <button class="carousel-btn carousel-btn-prev" aria-label="Предишен продукт">‹</button>
+      <button class="carousel-btn carousel-btn-next" aria-label="Следващ продукт">›</button>
+      
+      <!-- Indicators -->
+      <div class="carousel-indicators">
+        <button class="carousel-indicator active" data-slide="0"></button>
+        <button class="carousel-indicator" data-slide="1"></button>
+        <button class="carousel-indicator" data-slide="2"></button>
+        <button class="carousel-indicator" data-slide="3"></button>
       </div>
     </div>
   </section>
@@ -290,4 +324,87 @@
   </section>
 </main>
 <footer class="footer">© ТЛ Компютърс · Бургаска област · Тел: <a class="tel" href="tel:+359884718108">0884 718 108</a></footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = {
+    track: document.querySelector('.carousel-track'),
+    slides: document.querySelectorAll('.carousel-slide'),
+    indicators: document.querySelectorAll('.carousel-indicator'),
+    prevBtn: document.querySelector('.carousel-btn-prev'),
+    nextBtn: document.querySelector('.carousel-btn-next'),
+    currentSlide: 0,
+    autoplayInterval: null,
+    
+    init() {
+      this.setupEventListeners();
+      this.startAutoplay();
+      this.updateCarousel();
+    },
+    
+    setupEventListeners() {
+      this.prevBtn.addEventListener('click', () => this.prevSlide());
+      this.nextBtn.addEventListener('click', () => this.nextSlide());
+      
+      this.indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => this.goToSlide(index));
+      });
+      
+      // Pause autoplay on hover
+      const carouselContainer = document.querySelector('.carousel-container');
+      carouselContainer.addEventListener('mouseenter', () => this.stopAutoplay());
+      carouselContainer.addEventListener('mouseleave', () => this.startAutoplay());
+    },
+    
+    updateCarousel() {
+      const translateX = -this.currentSlide * 100;
+      this.track.style.transform = `translateX(${translateX}%)`;
+      
+      // Update indicators
+      this.indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === this.currentSlide);
+      });
+      
+      // Update slide active class
+      this.slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === this.currentSlide);
+      });
+    },
+    
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+      this.updateCarousel();
+    },
+    
+    prevSlide() {
+      this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+      this.updateCarousel();
+    },
+    
+    goToSlide(index) {
+      this.currentSlide = index;
+      this.updateCarousel();
+    },
+    
+    startAutoplay() {
+      this.stopAutoplay();
+      this.autoplayInterval = setInterval(() => {
+        this.nextSlide();
+      }, 4000); // Change slide every 4 seconds
+    },
+    
+    stopAutoplay() {
+      if (this.autoplayInterval) {
+        clearInterval(this.autoplayInterval);
+        this.autoplayInterval = null;
+      }
+    }
+  };
+  
+  // Initialize carousel if it exists
+  if (document.querySelector('.carousel-container')) {
+    carousel.init();
+  }
+});
+</script>
 </body></html>
